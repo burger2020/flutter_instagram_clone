@@ -13,12 +13,13 @@ class PostWidget extends StatelessWidget {
     return Container(
       child: Column(
         children: [
+          const SizedBox(height: 15),
           _header(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 10),
           _image(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 10),
           _infoCount(),
-          const SizedBox(height: 5),
+          const SizedBox(height: 10),
           _infoDescription(),
           // _replyTextBtn(),
           // _dateAgo()
@@ -62,7 +63,7 @@ class PostWidget extends StatelessWidget {
 
   Widget _infoCount() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -88,6 +89,7 @@ class PostWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           Text("좋아요 150게", style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 5),
           ExpandableText('content 1\ncontent 1\ncontent 1', expandText: '더보기 ')
         ],
       ),
