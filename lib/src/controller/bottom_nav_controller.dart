@@ -9,6 +9,9 @@ import '../pages/upload.dart';
 enum PageName { home, search, upload, activity, myPage }
 
 class BottomNavController extends GetxController {
+  static BottomNavController get of => Get.find();
+  GlobalKey<NavigatorState> searchPageNavigationKey = GlobalKey<NavigatorState>();
+
   RxInt pageIndex = 0.obs;
   List<int> bottomHistory = [0];
 
@@ -42,20 +45,23 @@ class BottomNavController extends GetxController {
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopUp(
-                title: "title",
-                message: "message",
-                successCallback: () {
-                  exit(0);
-                },
-                cancelCallback: Get.back,
-              ));
+              title: "title",
+              message: "message",
+              successCallback: () {
+                exit(0);
+              },
+              cancelCallback: Get.back));
       return true;
     } else {
-      print('goto before page!');
+      /// 현재 검색 탭이고 검색 내비게이션에 팝시도(검색 화면 닫기) 후 팝할게 있었으면 바탐내비게이션 이동 하지 않음
+      var page = PageName.values[bottomHistory.last];
+      if (page == PageName.search) {
+        var value = await searchPageNavigationKey.currentState!.maybePop();
+        if (value) return false;
+      }
       bottomHistory.removeLast();
       var index = bottomHistory.last;
       changeBottomNave(index, hasGesture: false);
-      print(bottomHistory);
       return false;
     }
   }

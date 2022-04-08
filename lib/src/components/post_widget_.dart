@@ -10,27 +10,29 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          const SizedBox(height: 15),
-          _header(),
-          const SizedBox(height: 10),
-          _image(),
-          const SizedBox(height: 10),
-          _infoCount(),
-          const SizedBox(height: 10),
-          _infoDescription(),
-          // _replyTextBtn(),
-          // _dateAgo()
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(height: 15),
+        _header(),
+        const SizedBox(height: 10),
+        _image(),
+        const SizedBox(height: 10),
+        _infoCount(),
+        const SizedBox(height: 10),
+        _infoDescription(),
+        const SizedBox(height: 10),
+        _replyTextBtn(),
+        const SizedBox(height: 10),
+        _dateAgo()
+      ],
     );
   }
 
+  /// 프로필 정보
   Widget _header() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -55,12 +57,14 @@ class PostWidget extends StatelessWidget {
     );
   }
 
+  /// 개시물 이미지
   Widget _image() {
     return CachedNetworkImage(
         imageUrl:
             'https://helpx.adobe.com/content/dam/help/en/photoshop/how-to/compositing/jcr%3Acontent/main-pars/image/compositing_1408x792.jpg');
   }
 
+  /// 좋아요, 댓글 등
   Widget _infoCount() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -82,9 +86,10 @@ class PostWidget extends StatelessWidget {
     );
   }
 
+  ///게시물 내용
   Widget _infoDescription() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
@@ -93,6 +98,22 @@ class PostWidget extends StatelessWidget {
           ExpandableText('content 1\ncontent 1\ncontent 1', expandText: '더보기 ')
         ],
       ),
+    );
+  }
+
+  /// 댓글 개수
+  Widget _replyTextBtn() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      child: Text("댓글 199개 모두 보기", style: TextStyle(color: Color(0xffe3e3e3), fontSize: 14)),
+    );
+  }
+
+  /// 작성 날짜
+  Widget _dateAgo() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      child: Text("1일 전", style: TextStyle(color: Color(0xffe3e3e3), fontSize: 13)),
     );
   }
 }

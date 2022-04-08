@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/src/components/image_data.dart';
 import 'package:flutter_instagram_clone/src/controller/bottom_nav_controller.dart';
 import 'package:flutter_instagram_clone/src/imagepath.dart';
+import 'package:flutter_instagram_clone/src/pages/search/search.dart';
 import 'package:get/get.dart';
 
+import 'pages/active_history.dart';
 import 'pages/home.dart';
+import 'pages/my_page.dart';
 
 class App extends GetView<BottomNavController> {
   const App({Key? key}) : super(key: key);
@@ -15,15 +18,18 @@ class App extends GetView<BottomNavController> {
         onWillPop: () async => controller.willPopAction(),
         child: Obx(
           () => Scaffold(
-            backgroundColor: Colors.red,
             body: IndexedStack(
               index: controller.pageIndex.value,
               children: [
-                Container(child: const Home()),
-                Container(child: Center(child: Text("search"))),
-                Container(child: Center(child: Text("upload"))),
-                Container(child: Center(child: Text("activity"))),
-                Container(child: Center(child: Text("my page")))
+                const Home(),
+                Navigator(
+                    key: controller.searchPageNavigationKey,
+                    onGenerateRoute: (routeSetting) {
+                      return MaterialPageRoute(builder: (context) => const Search());
+                    }),
+                const Center(),
+                const ActiveHistory(),
+                const MyPage()
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

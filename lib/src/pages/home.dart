@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/src/components/avatar_widget.dart';
 import 'package:flutter_instagram_clone/src/components/post_widget_.dart';
@@ -26,10 +25,7 @@ class Home extends StatelessWidget {
         ],
       ),
       body: ListView(
-        children: [
-          _storyBoardList(),
-          _postList()
-        ],
+        children: [_storyBoardList(), _postList()],
       ),
     );
   }
@@ -72,12 +68,7 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 shape: BoxShape.circle, color: Colors.blue, border: Border.all(color: Colors.white, width: 2)),
             child: const Center(
-              child: Text(
-                "+",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
+              child: Text("+", style: TextStyle(fontSize: 20, color: Colors.white, height: 1.1)),
             ),
           ),
         )
