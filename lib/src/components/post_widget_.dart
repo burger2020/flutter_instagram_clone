@@ -10,21 +10,22 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          const SizedBox(height: 15),
-          _header(),
-          const SizedBox(height: 10),
-          _image(),
-          const SizedBox(height: 10),
-          _infoCount(),
-          const SizedBox(height: 10),
-          _infoDescription(),
-          // _replyTextBtn(),
-          // _dateAgo()
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 15),
+        _header(),
+        const SizedBox(height: 10),
+        _image(),
+        const SizedBox(height: 10),
+        _infoCount(),
+        const SizedBox(height: 10),
+        _infoDescription(),
+        const SizedBox(height: 5),
+        _replyTextBtn(),
+        const SizedBox(height: 5),
+        _dateAgo()
+      ],
     );
   }
 
@@ -35,7 +36,8 @@ class PostWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const AvatarWidget(
-            thumbPath: "https://www.walkerhillstory.com/wp-content/uploads/2020/09/2-1.jpg",
+            thumbPath:
+                "https://www.walkerhillstory.com/wp-content/uploads/2020/09/2-1.jpg",
             type: AvatarType.type3,
             size: 40,
             nickname: "burger",
@@ -87,11 +89,47 @@ class PostWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          Text("좋아요 150게", style: TextStyle(fontWeight: FontWeight.bold)),
-          SizedBox(height: 5),
-          ExpandableText('content 1\ncontent 1\ncontent 1', expandText: '더보기 ')
+        children: [
+          const Text("좋아요 150게", style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 5),
+          ExpandableText(
+            'content 1\ncontent 1\ncontent 1',
+            expandText: '더보기 ',
+            prefixText: "burger버거",
+            onPrefixTap: () {
+              print("버거 페이지로 이동");
+            },
+            prefixStyle: const TextStyle(fontWeight: FontWeight.bold),
+            expandOnTextTap: true,
+            maxLines: 3,
+            linkColor: Colors.grey,
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _replyTextBtn() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: GestureDetector(
+        onTap: () {
+          print("댓글 화면 이동");
+        },
+        child: const Text(
+          "댓글 199개 모두 보기",
+          style: TextStyle(color: Colors.grey, fontSize: 13),
+        ),
+      ),
+    );
+  }
+
+  Widget _dateAgo() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      child: Text(
+        "1일 전",
+        style: TextStyle(color: Colors.grey, fontSize: 11),
       ),
     );
   }

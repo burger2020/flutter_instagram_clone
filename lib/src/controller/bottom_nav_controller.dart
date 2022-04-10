@@ -10,6 +10,7 @@ enum PageName { home, search, upload, activity, myPage }
 
 class BottomNavController extends GetxController {
   RxInt pageIndex = 0.obs;
+  GlobalKey<NavigatorState> searchPageNavigatorKey = GlobalKey<NavigatorState>();
   List<int> bottomHistory = [0];
 
   void changeBottomNave(int value, {bool hasGesture = true}) {
@@ -38,7 +39,6 @@ class BottomNavController extends GetxController {
 
   Future<bool> willPopAction() async {
     if (bottomHistory.length == 1) {
-      print("exit");
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopUp(
@@ -51,7 +51,13 @@ class BottomNavController extends GetxController {
               ));
       return true;
     } else {
-      print('goto before page!');
+      var page = PageName.values[bottomHistory.last];
+      if (page == PageName.search) {
+        var value = await searchPageNavigatorKey.currentState!.maybePop();
+        if (value) {
+          return false;
+        } else {}
+      }
       bottomHistory.removeLast();
       var index = bottomHistory.last;
       changeBottomNave(index, hasGesture: false);
