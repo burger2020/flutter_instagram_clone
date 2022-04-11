@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:path/path.dart';
+import 'package:image/image.dart' as imageLib;
 
 class UploadController extends GetxController {
   var albums = <AssetPathEntity>[].obs;
@@ -28,12 +30,12 @@ class UploadController extends GetxController {
   }
 
   void _loadData() async {
-    headerTitle(albums.first.name);
-    await _pagingPhotos();
+    changeAlbum(albums.first);
   }
 
-  Future<void> _pagingPhotos() async {
-    var photos = await albums.first.getAssetListPaged(page: 0, size: 30);
+  Future<void> _pagingPhotos(AssetPathEntity album) async {
+    imageList.clear();
+    var photos = await album.getAssetListPaged(page: 0, size: 30);
     imageList.addAll(photos);
     changeSelectedImage(photos.first);
   }
@@ -44,5 +46,32 @@ class UploadController extends GetxController {
 
   void changeAlbum(AssetPathEntity album) {
     headerTitle(album.name);
+    _pagingPhotos(album);
+  }
+
+  void gotoImageFilter() async {
+    var file = await selectedImage.value.file;
+    var fileName = basename(file!.path);
+    // var image = imageLib.decodeImage(imageFile.readAsBytesSync());
+    // image = imageLib.copyResize(image, width: 600);
+    // Map imagefile = await Navigator.push(
+    //   context,
+    //   new MaterialPageRoute(
+    //     builder: (context) => new PhotoFilterSelector(
+    //       title: Text("Photo Filter Example"),
+    //       image: image,
+    //       filters: presetFiltersList,
+    //       filename: fileName,
+    //       loader: Center(child: CircularProgressIndicator()),
+    //       fit: BoxFit.contain,
+    //     ),
+    //   ),
+    // );
+    // if (imagefile != null && imagefile.containsKey('image_filtered')) {
+    //   setState(() {
+    //     imageFile = imagefile['image_filtered'];
+    //   });
+    //   print(imageFile.path);
+    // }
   }
 }

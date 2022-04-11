@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^1.14.0
   firebase_auth: ^3.3.13
   google_sign_in: ^5.2.4
+  photofilters: ^3.0.1
 
 dev_dependencies:
   flutter_test:

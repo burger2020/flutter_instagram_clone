@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/src/controller/upload_contoller.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-
 import '../components/image_data.dart';
 import '../imagepath.dart';
 
@@ -30,7 +29,9 @@ class Upload extends GetView<UploadController> {
               const Text("New Post", style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold)),
           actions: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                controller.gotoImageFilter();
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ImageData(IconsPath.nextImage, width: 50),
@@ -92,7 +93,8 @@ class Upload extends GetView<UploadController> {
                                             child: Text(controller.albums[index].name),
                                           ),
                                           onTap: () {
-                                            controller.changeAlbum(controller.albums[index])
+                                            controller.changeAlbum(controller.albums[index]);
+                                            Get.back();
                                           },
                                         )),
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
