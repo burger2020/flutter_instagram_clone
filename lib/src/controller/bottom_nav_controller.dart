@@ -20,7 +20,7 @@ class BottomNavController extends GetxController {
     var page = PageName.values[value];
     switch (page) {
       case PageName.upload:
-        Get.to(Upload(), binding: BindingsBuilder(() {
+        Get.to(const Upload(), binding: BindingsBuilder(() {
           Get.put(UploadController());
         }));
         break;

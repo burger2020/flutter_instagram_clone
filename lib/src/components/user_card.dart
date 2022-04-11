@@ -22,7 +22,10 @@ class UserCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Column(
             children: [
-              const AvatarWidget(thumbPath: "", type: AvatarType.type2, size: 80),
+              const AvatarWidget(
+                  thumbPath: "https://www.walkerhillstory.com/wp-content/uploads/2020/09/2-1.jpg",
+                  type: AvatarType.type2,
+                  size: 80),
               const SizedBox(height: 10),
               Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
               Text(description, style: const TextStyle(fontSize: 13), textAlign: TextAlign.center),

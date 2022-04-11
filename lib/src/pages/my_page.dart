@@ -60,7 +60,10 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const AvatarWidget(thumbPath: "", type: AvatarType.type3, size: 80),
+              const AvatarWidget(
+                  thumbPath: "https://www.walkerhillstory.com/wp-content/uploads/2020/09/2-1.jpg",
+                  type: AvatarType.type3,
+                  size: 80),
               const SizedBox(width: 5),
               Expanded(
                 child: Row(

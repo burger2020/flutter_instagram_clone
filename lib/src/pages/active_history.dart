@@ -47,7 +47,10 @@ class ActiveHistory extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: const [
-          AvatarWidget(thumbPath: "", type: AvatarType.type2, size: 40),
+          AvatarWidget(
+              thumbPath: "https://www.walkerhillstory.com/wp-content/uploads/2020/09/2-1.jpg",
+              type: AvatarType.type2,
+              size: 40),
           SizedBox(width: 10),
           Expanded(
               child: Text.rich(TextSpan(

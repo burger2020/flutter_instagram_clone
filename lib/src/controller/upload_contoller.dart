@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:path/path.dart';
-import 'package:image/image.dart' as imageLib;
 
 class UploadController extends GetxController {
   var albums = <AssetPathEntity>[].obs;
