@@ -92,7 +92,7 @@ class Upload extends GetView<UploadController> {
                                             child: Text(controller.albums[index].name),
                                           ),
                                           onTap: () {
-                                            controller.changeAlbum(controller.albums[index])
+                                            controller.changeAlbum(controller.albums[index]);
                                           },
                                         )),
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
