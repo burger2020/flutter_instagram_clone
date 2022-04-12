@@ -2,6 +2,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
+import '../pages/upload.dart';
+
 class FcmController extends GetxController {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   var fcmToken = ''.obs;
@@ -44,17 +46,33 @@ class FcmController extends GetxController {
       importance: Importance.high,
     );
     var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
-    fcmToken.value = await _messaging.getToken(
-            vapidKey: "BIhke2ggQ2CIRV5ykzSwXenuNWGZ_o8hB-dWAXvLeCdHG4AcniFsiQ8A_8DyfIlxwVy5jJOSjAmWEzyPyThSEPI") ??
-        '';
-    print('fcmToken.value = ${fcmToken.value}');
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+    const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: (payload) {
+      if (payload != null) {
+        Get.to(const Upload(), arguments: payload);
+      }
+    });
+
+    // flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
+    // ?.createNotificationChannel(channel);
+
+    // fcmToken.value = await _messaging.getToken(
+    //         vapidKey: "BIhke2ggQ2CIRV5ykzSwXenuNWGZ_o8hB-dWAXvLeCdHG4AcniFsiQ8A_8DyfIlxwVy5jJOSjAmWEzyPyThSEPI") ??
+    //     '';
+    // print('fcmToken.value = ${fcmToken.value}');
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      print('메세지 오픈 앱 : ${event.notification!.title}');
+    });
+    FirebaseMessaging.instance.getInitialMessage().then((value) {
+      print('메세지 오픈 앱 2: ${value?.notification?.title ?? 'asd'}');
+    });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
+      print('foreground Message data: ${message.data}');
 
       if (message.notification != null) {
         messages.add(message);
@@ -64,16 +82,26 @@ class FcmController extends GetxController {
             message.notification?.title,
             message.notification?.body,
             NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channelDescription: channel.description,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
-                icon: 'launch_background',
-              ),
-            ));
+                android: AndroidNotificationDetails(
+                  channel.id,
+                  channel.name,
+                  channelDescription: channel.description,
+                  icon: '@mipmap/ic_launcher',
+                ),
+                iOS: const IOSNotificationDetails(
+                  badgeNumber: 1,
+                  subtitle: 'the subtitle',
+                  sound: 'slow_spring_board.aiff',
+                )));
       }
     });
+  }
+
+  void selectNotification(String? payload) async {
+    print('notification payload11: $payload');
+    if (payload != null) {
+      print('notification payload: $payload');
+    }
+    await Get.to(const Upload());
   }
 }
